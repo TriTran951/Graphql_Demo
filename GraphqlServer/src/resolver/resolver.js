@@ -6,7 +6,7 @@ const resolver = {
     Query: {
         books: async () => await Book.find({}),
         book: async (parent, args) => await Book.findOne({ _id: args.id }),
-        authors: async (parent, args) => await Author.findOne({ _id: args.id }),
+        authors: async (parent, args) => await Author.find({}),
         author: async (parent, args) => await Author.findOne({ _id: args.id }),
     },
     Book: {
