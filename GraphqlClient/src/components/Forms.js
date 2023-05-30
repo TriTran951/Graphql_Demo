@@ -1,14 +1,14 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 
-import BookForm from "./BookForm";
-import AuthorForm from "./AuthorForm";
+import ProductForm from "./ProductForm";
+import BrandForm from "./BrandForm";
 
 const Forms = () => {
   return (
     <Row>
-      <BookForm />
-      <AuthorForm />
+      <ProductForm />
+      <BrandForm />
     </Row>
   );
 };

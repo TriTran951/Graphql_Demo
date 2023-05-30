@@ -1,31 +1,30 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-    type Book {
+    type Product {
         id: ID
         name: String
-        genre: String
-        author: Author
+        image: String
+        brand: Brand
     }
 
-    type Author {
+    type Brand {
         id: ID!
         name: String
-        age: Int
-        books: [Book]
+        products: [Product]
     }
 
     # ROOT type
     type Query {
-        books: [Book]
-        book(id: ID!): Book
-        authors: [Author]
-        author(id: ID!): Author
+        products: [Product]
+        product(id: ID!): Product
+        brands: [Brand]
+        brand(id: ID!): Brand
     }
 
     type Mutation {
-        createBook(name: String, genre: String, authorId: ID!): Book
-        createAuthor(name: String, age: Int): Author
+        createProduct(name: String, image: String, brandId: ID!): Product
+        createBrand(name: String): Brand
     }
 `;
 

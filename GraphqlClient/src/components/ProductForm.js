@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { Col, Form, Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
-import { getAuthors, getBooks } from "../graphql-client/query";
+import { addSingleProduct } from "../graphql-client/mutation";
+import { getProducts, getBrands } from "../graphql-client/query";
 
-import { addSingleBook } from "../graphql-client/mutation";
-
-const BookForm = () => {
-  const [newBook, setNewBook] = useState({
+const ProductForm = () => {
+  const [newProduct, setNewProduct] = useState({
     name: "",
-    genre: "",
-    authorId: "",
+    image: "",
+    brandId: "",
   });
 
   const onInputChange = (event) => {
-    setNewBook({
-      ...newBook,
+    setNewProduct({
+      ...newProduct,
       [event.target.name]: event.target.value,
     });
   };
@@ -23,22 +22,22 @@ const BookForm = () => {
     event.preventDefault();
     addBook({
       variables: {
-        name: newBook.name,
-        genre: newBook.genre,
-        authorId: newBook.authorId,
+        name: newProduct.name,
+        image: newProduct.image,
+        brandId: newProduct.brandId,
       },
-      refetchQueries: [{ query: getBooks }],
+      refetchQueries: [{ query: getProducts }],
     });
-    setNewBook({
+    setNewProduct({
       name: "",
-      genre: "",
-      authorId: "",
+      image: "",
+      brandId: "",
     });
   };
 
-  const { loading, error, data } = useQuery(getAuthors);
+  const { loading, error, data } = useQuery(getBrands);
 
-  const [addBook, dataMutation] = useMutation(addSingleBook);
+  const [addBook, dataMutation] = useMutation(addSingleProduct);
 
   return (
     <Col className="lg={6}">
@@ -48,17 +47,17 @@ const BookForm = () => {
             type="text"
             placeholder="name"
             onChange={onInputChange}
-            value={newBook.name}
+            value={newProduct.name}
             name="name"
           ></Form.Control>
         </Form.Group>
         <Form.Group>
           <Form.Control
             type="text"
-            placeholder="name"
-            name="genre"
+            placeholder="image link"
+            name="image"
             onChange={onInputChange}
-            value={newBook.genre}
+            value={newProduct.image}
           ></Form.Control>
         </Form.Group>
 
@@ -68,16 +67,16 @@ const BookForm = () => {
           <Form.Group>
             <Form.Control
               as="select"
-              name="authorId"
+              name="brandId"
               onChange={onInputChange}
-              value={newBook.authorId}
+              value={newProduct.brandId}
             >
               <option disabled value="">
-                Select author
+                Select brand
               </option>
-              {data.authors.map((author) => (
-                <option key={author.id} value={author.id}>
-                  {author.name}
+              {data.brands.map((brand) => (
+                <option key={brand.id} value={brand.id}>
+                  {brand.name}
                 </option>
               ))}
             </Form.Control>
@@ -85,11 +84,11 @@ const BookForm = () => {
         )}
 
         <Button className="float-end" variant="info" type="submit">
-          Add book
+          Add product
         </Button>
       </Form>
     </Col>
   );
 };
 
-export default BookForm;
+export default ProductForm;

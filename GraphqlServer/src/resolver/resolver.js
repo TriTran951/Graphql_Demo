@@ -1,32 +1,32 @@
 const { books, authors } = require('../data/static');
-const Author = require('../model/Author.model.js');
-const Book = require('../model/Book.model.js');
+const Product = require('../model/Product.model');
+const Brand = require('../model/Brand.model');
 
 const resolver = {
     Query: {
-        books: async () => await Book.find({}),
-        book: async (parent, args) => await Book.findOne({ _id: args.id }),
-        authors: async (parent, args) => await Author.find({}),
-        author: async (parent, args) => await Author.findOne({ _id: args.id }),
+        products: async () => await Product.find({}),
+        product: async (parent, args) => await Product.findOne({ _id: args.id }),
+        brands: async () => await Brand.find({}),
+        brand: async (parent, args) => await Brand.findOne({ _id: args.id }),
     },
-    Book: {
-        author: async (parent, args) => {
-            return await Author.findOne({ _id: parent.authorId });
+    Product: {
+        brand: async (parent, args) => {
+            return await Brand.findOne({ _id: parent.brandId });
         },
     },
-    Author: {
-        books: async (parent, args) => {
-            return await Book.find({ authorId: parent._id });
+    Brand: {
+        products: async (parent, args) => {
+            return await Product.find({ brandId: parent._id });
         },
     },
     Mutation: {
-        createAuthor: async (parent, args) => {
-            const newAuthor = new Author(args);
-            return await newAuthor.save();
+        createProduct: async (parent, args) => {
+            const newProduct = new Product(args);
+            return await newProduct.save();
         },
-        createBook: async (parent, args) => {
-            const newBook = new Book(args);
-            return await newBook.save();
+        createBrand: async (parent, args) => {
+            const newBrand = new Brand(args);
+            return await newBrand.save();
         },
     },
 };

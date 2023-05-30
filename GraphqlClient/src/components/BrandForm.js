@@ -1,43 +1,45 @@
 import React, { useState } from "react";
 import { Col, Form, Button } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-import { getAuthors } from "../graphql-client/query";
+import { getBrands } from "../graphql-client/query";
 
-import { addSingleAuthor } from "../graphql-client/mutation";
+import { addSingleBrand } from "../graphql-client/mutation";
 
-const AuthorForm = () => {
-  const [newAuthor, setNewAuthor] = useState({
+const BrandForm = () => {
+  const [newBrand, setNewBrand] = useState({
     name: "",
-    age: "",
   });
 
   const onInputChange = (event) => {
-    setNewAuthor({
-      ...newAuthor,
+    setNewBrand({
+      ...newBrand,
       [event.target.name]: event.target.value,
     });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    addAuthor({
+    addBrand({
       variables: {
-        name: newAuthor.name,
-        age: newAuthor.genre,
+        name: newBrand.name,
+        age: newBrand.genre,
       },
-      refetchQueries: [{ query: getAuthors }],
+      refetchQueries: [{ query: getBrands }],
     });
-    setNewAuthor({
+    setNewBrand({
       name: "",
       age: "",
     });
   };
 
-  const [addAuthor, dataMutation] = useMutation(addSingleAuthor);
+  const [addBrand, dataMutation] = useMutation(addSingleBrand);
 
   return (
     <Col className="lg={6}">
       <Form onSubmit={onSubmit}>
+        <Form.Group className="invisible">
+          <Form.Control />
+        </Form.Group>
         <Form.Group className="invisible">
           <Form.Control />
         </Form.Group>
@@ -46,25 +48,16 @@ const AuthorForm = () => {
             type="text"
             placeholder="name"
             onChange={onInputChange}
-            value={newAuthor.name}
+            value={newBrand.name}
             name="name"
           ></Form.Control>
         </Form.Group>
-        <Form.Group>
-          <Form.Control
-            type="number"
-            onChange={onInputChange}
-            value={newAuthor.age}
-            name="age"
-            placeholder="age"
-          ></Form.Control>
-        </Form.Group>
         <Button className="float-end" variant="info" type="submit">
-          Add book
+          Add Brand
         </Button>
       </Form>
     </Col>
   );
 };
 
-export default AuthorForm;
+export default BrandForm;

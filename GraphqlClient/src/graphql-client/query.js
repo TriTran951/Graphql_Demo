@@ -1,12 +1,12 @@
 import { gql } from "@apollo/client";
 
-const getBooks = gql`
-  query getBooksQuery {
-    books {
+const getProducts = gql`
+  query getProductsQuery {
+    products {
       id
       name
-      genre
-      author {
+      image
+      brand {
         id
         name
       }
@@ -14,18 +14,15 @@ const getBooks = gql`
   }
 `;
 
-const getSingleBook = gql`
-  query getBooksQuery($id: ID!) {
-    book(id: $id) {
+const getProduct = gql`
+  query getProductQuery($id: ID!) {
+    product(id: $id) {
       id
       name
-      genre
-      author {
-        id
+      image
+      brand {
         name
-        age
-        books {
-          id
+        products {
           name
         }
       }
@@ -33,13 +30,13 @@ const getSingleBook = gql`
   }
 `;
 
-const getAuthors = gql`
-  query getAuthorQuery {
-    authors {
+const getBrands = gql`
+  query getBrandsQuery {
+    brands {
       id
       name
     }
   }
 `;
 
-export { getBooks, getSingleBook, getAuthors };
+export { getProducts, getProduct, getBrands };

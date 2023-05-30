@@ -1,25 +1,21 @@
 import { gql } from "@apollo/client";
 
-const addSingleBook = gql`
-  mutation addSingleBookMutation(
-    $name: String
-    $genre: String
-    $authorId: ID!
-  ) {
-    createBook(name: $name, genre: $genre, authorId: $authorId) {
+const addSingleProduct = gql`
+  mutation addProductMutation($name: String, $image: String, $brandId: ID!) {
+    createProduct(name: $name, image: $image, brandId: $brandId) {
       id
       name
     }
   }
 `;
 
-const addSingleAuthor = gql`
-  mutation addSingleAuthorMutation($name: String, $age: Int) {
-    createAuthor(name: $name, age: $age) {
+const addSingleBrand = gql`
+  mutation addBrandMutation($name: String) {
+    createBrand(name: $name) {
       id
       name
     }
   }
 `;
 
-export { addSingleBook, addSingleAuthor };
+export { addSingleBrand, addSingleProduct };

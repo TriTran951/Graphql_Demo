@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import BookList from "./components/BookList";
+import ProductList from "./components/ProductList";
 import Form from "./components/Forms";
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
@@ -15,7 +15,7 @@ function App() {
       <Container className="" style={{ background: "aliceblue" }}>
         <h1 className="text-center text-info mb-3">App name</h1>
         <Form />
-        <BookList />
+        <ProductList />
       </Container>
     </ApolloProvider>
   );
